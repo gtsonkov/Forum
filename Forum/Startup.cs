@@ -51,7 +51,6 @@ namespace Forum
                     Configuration["EmailSender:Password"]
                 )
             );
-            services.Configure<EmailSender>(Configuration.GetSection("EmailSender"));
             services.AddMvc();
             
         }

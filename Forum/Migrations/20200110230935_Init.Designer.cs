@@ -11,8 +11,8 @@ using System;
 namespace Forum.Migrations
 {
     [DbContext(typeof(ForumDbContext))]
-    [Migration("20190429184626_Topics")]
-    partial class Topics
+    [Migration("20200110230935_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,31 @@ namespace Forum.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Forum.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorID");
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<DateTime>("LastUpdatedDate");
+
+                    b.Property<int>("TopicId");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("AuthorID");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Forum.Models.Topic", b =>
                 {
                     b.Property<int>("Id")
@@ -83,6 +108,9 @@ namespace Forum.Migrations
                     b.Property<string>("AutorId");
 
                     b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<DateTime>("LastUpdatedDate");
 
@@ -203,6 +231,18 @@ namespace Forum.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Forum.Models.Comment", b =>
+                {
+                    b.HasOne("Forum.Models.ApplicationUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorID");
+
+                    b.HasOne("Forum.Models.Topic", "Topic")
+                        .WithMany("Comments")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Forum.Models.Topic", b =>

@@ -22,6 +22,8 @@ namespace Forum.Controllers
         {
             List<Topic> topics = context.Topics
                 .Include(t => t.Autor)
+                .Include(t => t.Comments)
+                .ThenInclude(c => c.Author)
                 .OrderByDescending(t => t.CreateDate)
                 .ThenByDescending(t => t.LastUpdatedDate)
                 .ToList();

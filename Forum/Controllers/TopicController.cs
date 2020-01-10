@@ -30,6 +30,8 @@ namespace Forum.Controllers
 
             Topic topic = context.Topics
                 .Include(t => t.Autor)
+                .Include(c => c.Comments)
+                .ThenInclude(a => a.Author)
                 .Where(t => t.Id == id)
                 .SingleOrDefault();
 
