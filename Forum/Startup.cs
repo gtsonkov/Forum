@@ -40,8 +40,8 @@ namespace Forum
             })
                 .AddEntityFrameworkStores<ForumDbContext>()
                 .AddDefaultTokenProviders();
-
-            // Add application services.
+            services.AddSingleton<IEmailSender, EmailSender>();
+            //Add application services.
             services.AddTransient<IEmailSender, EmailSender>(i =>
                 new EmailSender(
                     Configuration["EmailSender:Host"],
@@ -51,8 +51,9 @@ namespace Forum
                     Configuration["EmailSender:Password"]
                 )
             );
+            services.Configure<EmailSender>(Configuration.GetSection("EmailSender"));
             services.AddMvc();
-            services.AddSingleton<IEmailSender, EmailSender>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
