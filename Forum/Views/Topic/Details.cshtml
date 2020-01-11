@@ -39,8 +39,11 @@
     </article>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
-    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-default">Delete</a>
+    @if (@Model.Autor.UserName == User.Identity.Name || User.Identity.Name == "Admin" )
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-default">Delete</a>
+    }
     <a asp-controller="Home" asp-action="Index" class="btn btn-default">Back to List</a>
-    @Html.Partial("../Comment/_List",Model)
+    @Html.Partial("../Comment/_List", Model)
 </div>
