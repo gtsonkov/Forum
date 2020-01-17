@@ -2,12 +2,11 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Forum.Models;
+using Forum.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forum.Controllers
 {
-    using Forum.Data;
-    using Microsoft.EntityFrameworkCore;
-
     public class HomeController : Controller
     {
         private readonly ForumDbContext context;
