@@ -1,2 +1,2 @@
 # TsForum
-Simple Forum using MVC ASP.Net Core
+Simple Forum using ASP.Net Core
